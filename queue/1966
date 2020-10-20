@@ -17,35 +17,36 @@ int main() {
 	for (i = 0; i < tc; i++) {
 		cin >> N >> M;
 		
-		while (!q.empty())
+		while (!q.empty()) //큐 비워주기
 			q.pop();
-		for (j = 0; j < N; j++) {
+
+		for (j = 0; j < N; j++) { //중요도 큐에 넣기
 			cin >> imp[j];
 			q.push(imp[j]);
 		}
 		
-		target = imp[M];
+		target = imp[M]; //목표 문서 값 저장
 		cnt = 1;
 		mid = 0;
 		while (1) {
-			sort(imp, imp + N, greater<int>());
+			sort(imp, imp + N, greater<int>()); //중요도를 크기 순서로 정렬
 			max = imp[mid];
-			while (!q.empty() && q.front() != max ) {
+			while (!q.empty() && q.front() != max ) { // 큐의 맨앞 값을 max값으로 만듬			
 				q.push(q.front());
 				q.pop();
-				if (--M < 0) {
+				if (--M < 0) { //큐안에서의 목표 문서의 위치를 저장
 					M += N;
 				}
 			}
-			if (q.front() == target && M==0) {
-				cout << cnt<<endl;
+			if (q.front() == target && M==0) { //M==0의 조건은 목표값이 큐의 맨앞에 있나 확인하기위함 
+				cout << cnt<<endl;            //같은 중요도를 가진 문서들이 있을경우 위치값이 필요하므로
 				break;
 			}
 			else {
-				cnt++;
-				mid++;
-				N--;
-				M--;
+				cnt++; //먼저 읽히는 문서 갯수  
+				mid++; //다음으로 큰 중요도값 인덱스 
+				N--; //max값이 큐에서 빠지므로 전체 크기 --
+				M--; // 큐에서 값이 하나 빠졌으므로 M크기도 --
 				if(!q.empty())
 					q.pop();
 			}
