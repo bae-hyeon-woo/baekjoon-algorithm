@@ -1,1 +1,57 @@
+#include <iostream>
+#include <queue>
+#include <algorithm>
+using namespace std;
 
+int main() {
+	queue<int> q;
+
+	int tc;
+	int N, M;
+	int i, j;
+	int imp[100];
+	int max,mid;
+	int target;
+	int cnt;
+	cin >> tc;
+	for (i = 0; i < tc; i++) {
+		cin >> N >> M;
+		
+		while (!q.empty())
+			q.pop();
+		for (j = 0; j < N; j++) {
+			cin >> imp[j];
+			q.push(imp[j]);
+		}
+		
+		target = imp[M];
+		cnt = 1;
+		mid = 0;
+		while (1) {
+			sort(imp, imp + N, greater<int>());
+			max = imp[mid];
+			while (!q.empty() && q.front() != max ) {
+				q.push(q.front());
+				q.pop();
+				if (--M < 0) {
+					M += N;
+				}
+			}
+			if (q.front() == target && M==0) {
+				cout << cnt<<endl;
+				break;
+			}
+			else {
+				cnt++;
+				mid++;
+				N--;
+				M--;
+				if(!q.empty())
+					q.pop();
+			}
+		}
+		
+
+	}
+
+}
