@@ -1,0 +1,99 @@
+#include <iostream> 
+#include <string>
+using namespace std;
+int arr[1000] = { 0 }; //#include deque 를 이용해서 하면 편한데 그냥 함수와 배열로 짜봤습니다
+int front=500;
+int back=500;
+
+
+int empty() {
+	if (front == back)
+		return 1;
+	else
+		return 0;
+}
+void push_front(int X) {
+	arr[front--] = X;
+}
+void push_back(int X) {
+	arr[++back] = X;
+}
+
+int size() {
+	return back - front;
+}
+
+int pop_front() {
+	if (empty()) {
+		return -1;
+	}
+	else {
+		return arr[++front];
+	}
+}
+int pop_back() {
+	if (empty()) {
+		return -1;
+	}
+	else {
+		return arr[back--];
+	}
+}
+int print_f() {
+	if (empty()) {
+		return -1;
+	}
+	else {
+		return arr[front+1];
+	}
+}
+int print_b() {
+	if (empty()) {
+		return -1;
+	}
+	else {
+		return arr[back];
+	}
+}
+int main() {
+	
+	int t_case;
+	string a;
+	int num;
+	cin >> t_case;
+	int i = 0;
+	while (i < t_case) {
+		cin>>a;
+
+		if (a == "push_front") {
+			cin >> num;
+			push_front(num);
+		}
+		else if (a == "push_back") {
+			cin >> num;
+			push_back(num);
+		}
+		else if (a == "pop_front") {
+			cout<<pop_front()<<"\n";
+		}
+		else if (a == "pop_back") {
+			cout << pop_back()<< "\n";
+		}
+		else if (a == "size") {
+			cout << size() << "\n";
+		}
+		else if (a == "empty") {
+			cout << empty()<<"\n";
+		}
+		else if (a == "front") {
+			cout << print_f() << "\n";
+		}
+		else if (a == "back") {
+			cout << print_b() << "\n";
+		}
+		
+		i++;
+	}
+	
+	
+}
