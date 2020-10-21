@@ -1,0 +1,56 @@
+#include <iostream>
+#include <deque>
+using namespace std;
+
+int main() {
+	deque<int> dq;
+	deque<int> dq2;
+	int N, M;
+	int arr[50] = {0};
+	int total;
+	int countf;
+	int countb;
+	cin >> N >> M;
+
+	for (int i = 0; i < N; i++) {
+		dq.push_back(i + 1);
+		dq2.push_back(i + 1);
+	}
+	for (int i = 0; i < M; i++) {
+		cin >> arr[i];
+	}
+	total = 0;
+	for (int i = 0; i < M; i++) {
+		countf = 0;
+		countb = 0;
+		while (1) {
+			if (dq.front() == arr[i]) {
+				dq.pop_front();
+				break;
+			}
+			else {
+				dq.push_back(dq.front());
+				countf++;
+				dq.pop_front();
+			}
+		}
+		while (1) {
+			if (dq2.front() == arr[i]) {
+				dq2.pop_front();
+				break;
+			}
+			else {
+				dq2.push_front(dq2.back());
+				countb++;
+				dq2.pop_back();
+			}
+		}
+		if (countf > countb) {
+			total += countb;
+		}
+		else {
+			total += countf;
+		}
+	}
+	cout << total << "\n";
+}
