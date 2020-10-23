@@ -1,0 +1,91 @@
+#include <iostream>
+#include <deque>
+#include <string>
+using namespace std;
+
+int main() {
+	deque<int> dq;
+	int n = 4;
+	char c;
+	int tc;
+	string s;
+	int num;
+	bool reverse;
+	bool err;
+	int i = 0;
+	int j = 0;
+	cin >> tc;
+	while (tc--) {
+		cin >> s;
+		cin >> n;
+		cin >> c;
+
+		dq.clear();
+		reverse = false;
+		err = false;
+		j = 0;
+		if (n > 0) {
+			for (int i = 0; i < n; i++) {
+				cin >> num >> c;
+				if (num != 0) {
+					dq.push_back(num);
+				}
+			}
+		}
+		else {
+			cin >> c;
+		}
+
+		while (j < s.size()) {
+			if (s[j] == 'R') {
+				reverse = !reverse;
+			}
+			else if (reverse && s[j] == 'D') {
+				if (!dq.empty()) {
+					dq.pop_back();
+				}
+				else {
+					err = true;
+					break;
+				}
+			}
+			else if (!reverse && s[j] == 'D') {
+				if (!dq.empty()) {
+					dq.pop_front();
+				}
+				else {
+					err = true;
+					break;
+				}
+			}
+			j++;
+		}
+
+		if (err) {
+			cout << "error\n";
+			continue;
+		}
+		cout << "[";
+		if (reverse) {
+
+			while (!dq.empty()) {
+				cout << dq.back();
+				dq.pop_back();
+				if (dq.size()) {
+					cout << ",";
+				}
+			}
+		}
+		else {
+			while (!dq.empty()) {
+				cout << dq.front();
+				dq.pop_front();
+				if (dq.size()) {
+					cout << ",";
+				}
+			}
+		}
+		cout << "]\n";
+	}
+
+}
